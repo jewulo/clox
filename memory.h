@@ -15,7 +15,7 @@
         sizeof(type) * (newCount))
 
 #define FREE_ARRAY(type, pointer, oldCount) \
-    reallocate(pointer, sizeof(type) * (oldCount), 0)   // free memory by pass newSize = 0 to reallocate
+    reallocate(pointer, sizeof(type) * (oldCount), 0)   // free memory by passing newSize = 0 to reallocate
 
 void* reallocate(void* pointer, size_t oldSize, size_t newSize);
 
