@@ -14,6 +14,7 @@ typedef enum {
 } ValueType;
 
 // typedef double Value;
+// clox dynamic-type struct
 typedef struct {
     ValueType type;
     union {
