@@ -5,6 +5,8 @@
 #ifndef CLOX_COMPILER_H
 #define CLOX_COMPILER_H
 
+#include "object.h"
+#include "vm.h"
 #include "chunk.h"
 
 // void compile(const char* source);
