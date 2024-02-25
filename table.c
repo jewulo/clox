@@ -22,11 +22,23 @@ void freeTable(Table* table) {
     initTable(table);
 }
 
+// this algorithm is confusing
 static Entry* findEntry(Entry *entries, int capacity, ObjString* key) {
     uint32_t index = key->hash % capacity;
+    Entry* tombstone = NULL;
+
     for (;;) {
         Entry* entry = &entries[index];
-        if (entry->key == key || entry->key == NULL) {
+        if (entry->key == NULL) {
+            if (IS_NIL(entry->value)) {
+                // Empty entry.
+                return tombstone != NULL ? tombstone : entry;
+            } else {
+                // We found a tombstone.
+                if (tombstone == NULL) tombstone = entry;
+            }
+        } else if (entry->key == key) {
+            // We found a key.
             return entry;
         }
 
@@ -52,7 +64,8 @@ static void adjustCapacity(Table* table, int capacity) {
     }
 
     for (int i = 0; i < table->capacity; i++) {
-        Entry* entry = &table->entries[i];      // why is it taking an address? Is Entry* entry = table->entries[i] not correct?
+        // Entry* entry = from->entries[i]; // error: incompatible types when initializing type 'Entry *' using type 'Entry'
+        Entry* entry = &table->entries[i];  // the array-index returns type Entry, the & gives the address of the Entry
         if (entry->key == NULL) continue;
         Entry* dest = findEntry(entries, capacity, entry->key);
         dest->key = entry->key;
@@ -80,13 +93,23 @@ bool tableSet(Table* table, ObjString* key, Value value) {
 }
 
 bool tableDelete(Table* table, ObjString* key) {
+    if (table->count == 0) return false;    // nothing to delete
 
+    // Find the entry.
+    Entry* entry = findEntry(table->entries, table->capacity, key);
+
+    // ... otherwise, we found it
+    // So, place a tombstone in the entry.
+    // In clox we use a NULL key and a true value to denote an Entry tombstone.
+    entry->key = NULL;
+    entry->value = BOOL_VAL(true);
+    return true;
 }
 
 void tableAddAll(Table* from, Table* to) {
     for (int i = 0; i < from->capacity; i++) {
-        // Entry* entry = from->entries[i];    // error: incompatible types when initializing type 'Entry *' using type 'Entry'
-        Entry* entry = &from->entries[i];   // the array-index returns type Entry, the & gives its address
+        // Entry* entry = from->entries[i]; // error: incompatible types when initializing type 'Entry *' using type 'Entry'
+        Entry* entry = &from->entries[i];   // the array-index returns type Entry, the & gives the address of the Entry
 
         if (entry->key != NULL) {
             tableSet(to, entry->key, entry->value);
