@@ -37,9 +37,11 @@ void initVM() {
     resetStack();
     // vm.objects = nullptr;    // C23 new keyword
     vm.objects = NULL;
+    initTable(&vm.strings);
 }
 
 void freeVM() {
+    freeTable(&vm.strings);
     freeObjects();
 }
 
