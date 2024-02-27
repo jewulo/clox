@@ -24,6 +24,7 @@ struct Obj {
     struct Obj* next;
 };
 
+// representing clox strings has list of chars
 struct ObjString {
     Obj         obj;
     int         length;
