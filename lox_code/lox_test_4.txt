@@ -1,0 +1,5 @@
+fun noReturn() {
+    print "Do stuff";
+}
+
+print noReturn(); // printing a no return value: this is why emitReturn() includes emitByte(OP_NIL);
