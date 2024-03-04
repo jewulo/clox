@@ -13,8 +13,15 @@
 #define FRAMES_MAX  64
 #define STACK_MAX   (FRAMES_MAX * UINT8_MAX)
 
+//typedef struct {
+//    ObjFunction*    function;
+//    uint8_t*        ip;
+//    Value*          slots;
+//} CallFrame;
+
+// Chapter 25, Page 468;
 typedef struct {
-    ObjFunction*    function;
+    ObjClosure*     closure;
     uint8_t*        ip;
     Value*          slots;
 } CallFrame;
