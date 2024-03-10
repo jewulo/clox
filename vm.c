@@ -348,7 +348,7 @@ static InterpretResult run() {
             }
             case OP_RETURN: {
                 Value result = pop();   // get value expression being returned
-                vm.frameCount--;        // redcece frames
+                vm.frameCount--;        // reduce frames
                 if (vm.frameCount == 0) { // program exits if no more stack frames
                     pop();
                     return INTERPRET_OK;
