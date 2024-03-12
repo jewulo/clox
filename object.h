@@ -17,7 +17,7 @@
 #define IS_NATIVE(value)        isObjType(value, OBJ_NATIVE)
 #define IS_STRING(value)        isObjType(value, OBJ_STRING)
 
-#define AS_CLOSURE(value)       ((ObjClosure *)AS_OBJ(value))
+#define AS_CLOSURE(value)       ((ObjClosure*)AS_OBJ(value))
 #define AS_FUNCTION(value)      ((ObjFunction*)AS_OBJ(value))
 #define AS_NATIVE(value)        (((ObjNative*)AS_OBJ(value))->function)
 #define AS_STRING(value)        ((ObjString*)AS_OBJ(value))
@@ -31,8 +31,10 @@ typedef enum {
     OBJ_UPVALUE
 } ObjType;
 
+
 struct Obj {
     ObjType     type;
+    bool        isMarked;
     struct Obj* next;
 };
 
