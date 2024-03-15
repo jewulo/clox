@@ -84,6 +84,8 @@ void initVM() {
     resetStack();
 
     vm.objects = NULL;  // vm.objects = nullptr;  nullptr C23 new keyword. will it break everything
+    vm.bytesAllocated = 0;
+    vm.nextGC = 1024 * 1024;
 
     vm.grayCount = 0;
     vm.grayCapacity = 0;
