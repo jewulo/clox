@@ -84,6 +84,11 @@ void initVM() {
     resetStack();
 
     vm.objects = NULL;  // vm.objects = nullptr;  nullptr C23 new keyword. will it break everything
+
+    vm.grayCount = 0;
+    vm.grayCapacity = 0;
+    vm.grayStack = NULL;
+
     initTable(&vm.globals);
     initTable(&vm.strings);
 
