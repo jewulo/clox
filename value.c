@@ -52,6 +52,8 @@ bool valuesEqual(Value a, Value b) {
             // what does AS_OBJ(a) == AS_OBJ(b) do?
             // see object.h
 // object/string comparison before chapter 20
+// I guess all Obj type are on the heap. Therefore, equality becomes
+// a memory location comparison rather than byte value comparison.
 //            {
 //                ObjString* aString = AS_STRING(a);
 //                ObjString* bString = AS_STRING(b);
