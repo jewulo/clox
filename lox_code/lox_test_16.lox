@@ -1,3 +1,13 @@
 class Brioche {}
-print Brioche;
-print Brioche();
+print Brioche;      // prints Brioche
+print Brioche();    // prints Brioche instance
+
+var obj = "not an instance";
+// print obj.field;    // "Only instances have properties."
+
+class Pair {}
+
+var pair = Pair();
+pair.first = 1;
+pair.second = 2;
+print pair.first + pair.second; // 3
