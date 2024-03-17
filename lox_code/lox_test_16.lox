@@ -18,3 +18,20 @@ class Brunch {
     bacon() {}
     eggs() {}
 }
+
+var brunch = Brunch();
+var eggs = brunch.eggs;
+eggs();
+
+class Scone {
+    filling() {}
+    topping(first, second) {
+        print "scone with " + first + " and " + second;
+    }
+}
+
+var scone = Scone();
+scone.topping("berries", "cream");
+var sc = scone.topping;
+sc("berries", "cream");
+
