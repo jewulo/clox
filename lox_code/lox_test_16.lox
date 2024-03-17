@@ -1,3 +1,5 @@
+// class {}    // Error at '{': Expect class name.
+
 class Brioche {}
 print Brioche;      // prints Brioche
 print Brioche();    // prints Brioche instance
@@ -11,3 +13,8 @@ var pair = Pair();
 pair.first = 1;
 pair.second = 2;
 print pair.first + pair.second; // 3
+
+class Brunch {
+    bacon() {}
+    eggs() {}
+}

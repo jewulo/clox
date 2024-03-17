@@ -21,6 +21,8 @@ VM vm;
 
 static void closeUpvalues(Value *last);
 
+static void defineMethod(ObjString *pString);
+
 static Value clockNative(int argCount, Value* args) {
     return NUMBER_VAL((double)clock() / CLOCKS_PER_SEC);
 }
@@ -224,6 +226,12 @@ static void closeUpvalues(Value *last) {
         upvalue->location = &upvalue->closed;
         vm.openUpvalues = upvalue->next;
     }
+}
+
+static void defineMethod(ObjString *name) {
+    Value method = peek(0);
+    ObjClass* klass = AS_CLASS(peek(1));
+    tableSet(&klass->methods, name, method);
 }
 
 static bool isFalsey(Value value) {
@@ -475,6 +483,8 @@ static InterpretResult run() {
             case OP_CLASS:
                 push(OBJ_VAL(newClass(READ_STRING())));
                 break;
+            case OP_METHOD:
+                defineMethod(READ_STRING());
         }
     }
 #undef READ_BYTE
