@@ -21,9 +21,9 @@ VM vm;
 
 static void closeUpvalues(Value *last);
 
-static void defineMethod(ObjString *pString);
+static void defineMethod(ObjString *name);
 
-static bool bindMethod(ObjClass *klass, ObjString *pString);
+static bool bindMethod(ObjClass *klass, ObjString *name);
 
 static Value clockNative(int argCount, Value* args) {
     return NUMBER_VAL((double)clock() / CLOCKS_PER_SEC);
