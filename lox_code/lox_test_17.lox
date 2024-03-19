@@ -1,0 +1,17 @@
+class Nested {
+    method() {
+        fun function() {
+            print this;
+        }
+        function();
+    }
+}
+
+Nested().method();
+
+
+//print this; // At top level.    //Error at 'this': Can't use 'this' outside of a class.
+//fun notMethod() {
+    //print this; // In a function.   // Error at 'this': Can't use 'this' outside of a class.
+//}
+
