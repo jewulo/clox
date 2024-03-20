@@ -12,7 +12,7 @@ static char *readFile(const char *path);
 static void repl() {
     char line[1024];
     for (;;) {
-        printf("> ");
+        printf("clox:-> ");
 
         if (!fgets(line, sizeof(line), stdin)) {
             printf("\n");
@@ -76,8 +76,15 @@ void main_helper(int argc, const char *argv[]) {
     freeVM();
 }
 
+//#define USE_REPL
+#define USE_SOURCE_FILE
 
 int main(int argc, const char *argv[]) {
+#ifdef USE_REPL
+    main_helper(1, NULL);
+#endif
+#ifdef USE_SOURCE_FILE
     main_helper(argc, argv);
+#endif
     return 0;
 }
