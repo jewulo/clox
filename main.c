@@ -76,15 +76,16 @@ void main_helper(int argc, const char *argv[]) {
     freeVM();
 }
 
-//#define USE_REPL
-#define USE_SOURCE_FILE
+#define USE_REPL
+//#define USE_SOURCE_FILE
 
 int main(int argc, const char *argv[]) {
-#ifdef USE_REPL
-    main_helper(1, NULL);
-#endif
 #ifdef USE_SOURCE_FILE
     main_helper(argc, argv);
+#endif
+
+#ifdef USE_REPL
+    main_helper(1, NULL);
 #endif
     return 0;
 }
