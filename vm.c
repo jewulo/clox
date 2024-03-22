@@ -547,10 +547,10 @@ static InterpretResult run() {
                 pop();
                 break;
             case OP_RETURN: {
-                Value result = pop();   // get value expression being returned
+                Value result = pop();       // get value expression being returned
                 closeUpvalues(frame->slots);
-                vm.frameCount--;        // reduce frames
-                if (vm.frameCount == 0) { // program exits if no more stack frames
+                vm.frameCount--;            // reduce frames
+                if (vm.frameCount == 0) {   // program exits if no more stack frames
                     pop();
                     return INTERPRET_OK;
                 }
@@ -563,6 +563,18 @@ static InterpretResult run() {
             case OP_CLASS:
                 push(OBJ_VAL(newClass(READ_STRING())));
                 break;
+            case OP_INHERIT: {
+                Value superclass = peek(1);
+                if (!IS_CLASS(superclass)) {
+                    runtimeError("Superclass must be a class.");
+                    return INTERPRET_RUNTIME_ERROR;
+                }
+
+                ObjClass* subclass = AS_CLASS(peek(0));
+                tableAddAll(&AS_CLASS(superclass)->methods,&subclass->methods);
+                pop();  // subclass
+                break;
+            }
             case OP_METHOD:
                 defineMethod(READ_STRING());
                 break;

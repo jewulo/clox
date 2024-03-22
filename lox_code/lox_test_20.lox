@@ -1,0 +1,21 @@
+class Doughnut {
+    cook() { print "Dunk in the fryer."; }
+}
+
+class Crueller < Doughnut {
+    finish() { print "Glaze with icing."; }
+}
+
+var doug = Doughnut();
+var crue = Crueller();
+
+doug.cook();
+crue.cook();
+
+class Parent < Parent {} // error Parent cannot inherit itself.  
+
+var NotClass = "So not a class!";
+class OhNo < NotClass {}   // error: Superclass must be a class.
+
+
+
