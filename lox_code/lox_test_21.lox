@@ -1,0 +1,15 @@
+class A {
+    method() { print "A method."; }
+}
+
+var Bs_super = A;
+class B < A {
+    method() { print "B method."; }
+
+    test() { runtimeSupercall(Bs_super, "method"); }
+}
+
+var Cs_super = B;
+class C < B {}
+
+C().test();
