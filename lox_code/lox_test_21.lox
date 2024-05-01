@@ -1,15 +1,28 @@
-class A {
-    method() { print "A method."; }
+class A1 {
+    method() { print "A1 method."; }
 }
 
-var Bs_super = A;
-class B < A {
-    method() { print "B method."; }
+var B1s_super = A1;
+class B1 < A1 {
+    method() { print "B1 method."; }
 
     test() { runtimeSupercall(Bs_super, "method"); }
 }
 
-var Cs_super = B;
-class C < B {}
+var C1s_super = B1;
+class C1 < B1 {}
 
-C().test();
+C1().test();
+
+class A2 {
+    method() { print "A2."; }
+}
+
+class B2 < A2 {
+    method() {
+        var closure = supper.method;
+        closure();  // prints A2.
+    }
+
+    test() { runtimeSupercall(Bs_super, "method"); }
+}

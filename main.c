@@ -77,11 +77,12 @@ void main_helper(int argc, const char *argv[]) {
 }
 
 #define USE_SOURCE_FILE
-#define USE_REPL
+//#define USE_REPL
 
 int main(int argc, const char *argv[]) {
+
 #ifdef USE_SOURCE_FILE
-//#undef USE_REPL
+#undef USE_REPL
     main_helper(argc, argv);
 #endif
 

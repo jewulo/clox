@@ -12,7 +12,7 @@ var crue = Crueller();
 doug.cook();
 crue.cook();
 
-class Parent < Parent {} // error Parent cannot inherit itself.  
+class Parent < Parent {} // error: A class can't inherit from itself.
 
 var NotClass = "So not a class!";
 class OhNo < NotClass {}   // error: Superclass must be a class.
