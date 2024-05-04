@@ -24,7 +24,8 @@ void freeTable(Table* table) {
 
 // this algorithm is confusing
 static Entry* findEntry(Entry *entries, int capacity, ObjString* key) {
-    uint32_t index = key->hash % capacity;
+    //uint32_t index = key->hash % capacity;        // modulo % is slow as FUCK. See Page 587-588
+    uint32_t index = key->hash & (capacity - 1);    // Bit masking is faster and can get us the same result. See Page 588
     Entry* tombstone = NULL;
 
     for (;;) {
@@ -42,7 +43,8 @@ static Entry* findEntry(Entry *entries, int capacity, ObjString* key) {
             return entry;
         }
 
-        index = (index + 1) % capacity;
+        // index = (index + 1) % capacity;      // modulo % is slow as FUCK. See Page 587-588
+        index = (index + 1) & (capacity - 1);   // Bit masking is faster and can get us the same result. See Page 588
     }
 }
 
@@ -122,7 +124,8 @@ void tableAddAll(Table* from, Table* to) {
 ObjString *tableFindString(Table *table, const char *chars, int length, uint32_t hash) {
     if (table->count == 0) return NULL;
 
-    uint32_t index = hash % table->capacity;
+    // uint32_t index = hash % table->capacity;     // modulo % is slow as FUCK. See Page 589
+    uint32_t index = hash & (table->capacity - 1);  // Bit masking is faster and can get us the same result. See Page 589
     for (;;) {
         Entry* entry = &table->entries[index];
         if (entry->key == NULL) {
@@ -135,7 +138,8 @@ ObjString *tableFindString(Table *table, const char *chars, int length, uint32_t
             return entry->key;
         }
 
-        index = (index + 1) % table->capacity;
+        // index = (index + 1) % table->capacity;       // modulo % is slow as FUCK. See Page 589
+        index = (index + 1) & (table->capacity - 1);    // Bit masking is faster and can get us the same result. See Page 589
     }
 }
 
